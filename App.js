@@ -1,11 +1,11 @@
-import { Text, View,StyleSheet, ScrollView, FlatList } from 'react-native'
+import { Text, View,StyleSheet, ScrollView, FlatList, TouchableOpacity } from 'react-native'
 import React, { Component } from 'react'
 import CategoryCard from './components/CategoryCard'
 import { Navigation } from 'react-native-navigation';
 
 
 const cards = [
-  {'id': '0','title': "Random", 'description': "Select a random topic", 'icon': 'shuffle'},
+  {'id': '0','title': "Random", 'description': "Select a random topic", 'icon': 'shuffle', 'category_id': 'random'},
   {'id': '1','title': "General Knowledge", 'description': "Test your general knowledge", 'icon': 'network', 'category_id': '9'},
   {'id': '2', 'title': "Sports", 'description': "Football,Basketball,Tennis etc", 'icon': 'trophy', 'category_id': '21'},
 ]

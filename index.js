@@ -5,12 +5,14 @@ import CategoryCard from "./components/CategoryCard"
 import ProfileScreen from "./screens/ProfileScreen"
 import Quiz from "./components/Quiz"
 import QuizPreview from "./screens/QuizPreview"
+import ResultsScreen from "./components/ResultScreen"
 
 Navigation.registerComponent('Ana Sayfa', () => App);
 Navigation.registerComponent('card', () => CategoryCard);
 Navigation.registerComponent('ProfileScreen', () => ProfileScreen);
 Navigation.registerComponent('QuizScreen',() => Quiz);
 Navigation.registerComponent('PreviewPage', () => QuizPreview);
+Navigation.registerComponent('ResultsScreen', () => ResultsScreen);
 
 const homeIcon = Icon.getImageSourceSync('home', 35, 'black');
 const playIcon = Icon.getImageSourceSync('md-arrow-back', 24, 'white');

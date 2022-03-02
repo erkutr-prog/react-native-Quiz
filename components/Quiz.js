@@ -2,6 +2,7 @@ import { StyleSheet, Text, View, VirtualizedList } from 'react-native'
 import React, { Component } from 'react'
 import Card from '@paraboly/react-native-card/build/dist/components/Card/Card'
 import { Dimensions } from 'react-native'
+import { Navigation } from 'react-native-navigation';
 
 var colors = require('./../assets/colors/color');
 
@@ -21,7 +22,6 @@ export default class Quiz extends Component {
         total_counter: 0,
         answered: false,
         selectedAnswerIndex: 0,
-        corect_counter: 0
       }
   }
 
@@ -31,7 +31,12 @@ export default class Quiz extends Component {
   
   async fetchQuestions(category){
       var questionsdata = [];
-      var url = "https://opentdb.com/api.php?amount=10&category=" + category + "&type=multiple"
+      //setting our topic based on selection with category_id
+      if (category === 'random') {
+        var url = "https://opentdb.com/api.php?amount=10&category=" + "&type=multiple"
+      } else {
+        var url = "https://opentdb.com/api.php?amount=10&category=" + category + "&type=multiple"
+      }
     try {
       await fetch(url)
     .then(response => response.json())
@@ -49,6 +54,7 @@ export default class Quiz extends Component {
     })
   }
 
+  //Manipulating and getting the questions ready to render the screen
   async setQuestionData(questionsdata) {
     var question_List = questionsdata.map(({question}) => question);
     await this.fixQuestionsFromApi(question_List);
@@ -63,8 +69,6 @@ export default class Quiz extends Component {
     }
     await this.fixAnswersFromApi(shuffled_answerlist);
     this.setState({questions: question_List, answers: shuffled_answerlist});
-    console.log("answers: ", this.state.answers)
-    console.log("dataaa", this.state.questions);
   }
 
   fixQuestionsFromApi(list) {
@@ -85,15 +89,14 @@ export default class Quiz extends Component {
     let encoded, decoded = '';
     for (i; i < list.length; i++) {
       for (j; j < 4; j++) {
-        console.log("before_encoding", list[i]);
         encoded = encodeURI(list[i]);
         decoded = decodeURI(encoded);
         list[i] = decoded;
-        console.log("after_encoding", list[i]);
       }
     }
   }
 
+  //shuffling correct answer and others
   shuffleAnswers(answerList) {
     var currentIndex = answerList.length, temporaryValue, randomIndex;
     while (0 !== currentIndex) {
@@ -106,6 +109,7 @@ export default class Quiz extends Component {
     return answerList;
   }
 
+  //method for rendering question
   _renderQuestion() {
     return (
       <View style={styles.question}>
@@ -115,31 +119,55 @@ export default class Quiz extends Component {
     )
   }
 
+  //When user makes his choice..
   _onAnswer(answer, index) {
-    this.setState({
-      answered: true,
-      selectedAnswerIndex: index
-    })
-    console.log(this.state.data);
-    if (answer === this.state.data[this.state.questionIndex]['correct_answer']) {
+    if (this.state.questionIndex <= (this.state.questions.length - 1)) {
       this.setState({
-        correct_counter: this.state.corect_counter + 1
+        answered: true,
+        selectedAnswerIndex: index
       })
-      console.log(this.state.correct_counter);
-    } else {
-      console.log("yanlis")
-    }
-    
-    setTimeout(() => {
-      this.setState({
-        answered: false
-      })
-      this.setState( {
-        questionIndex: this.state.questionIndex + 1
-      })
-    }, 1000);
+      if (answer === this.state.data[this.state.questionIndex]['correct_answer']) {
+        this.setState({
+          correct_counter: this.state.correct_counter + 1
+        })
+      }
+      
+      setTimeout(() => {
+        this.setState({
+          answered: false
+        })
+        if (this.state.questionIndex == (this.state.questions.length - 1)){
+          Navigation.push(this.props.componentId, {
+            component: {
+              name: "ResultsScreen",
+              passProps: {
+                counter: this.state.correct_counter,
+                title: this.props.title,
+                total: this.state.questions.length
+              },
+              options: {
+                topBar: {
+                  title: {
+                    text: "Congratulations!"
+                  },
+                  backButton: {
+                    visible: false
+                  }
+                }
+              }
+            }
+          })
+        } else {
+          this.setState( {
+            questionIndex: this.state.questionIndex + 1
+          })
+        }
+      }, 1000);
+
+    } 
   }
 
+  //method for rendering options
   renderOptions() {
     var correct_answer = this.state.data[this.state.questionIndex]['correct_answer'];
     return (
