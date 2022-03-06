@@ -6,6 +6,9 @@ import ProfileScreen from "./screens/ProfileScreen"
 import Quiz from "./components/Quiz"
 import QuizPreview from "./screens/QuizPreview"
 import ResultsScreen from "./components/ResultScreen"
+import { color } from 'react-native-elements/dist/helpers';
+
+var colors = require('./assets/colors/color')
 
 Navigation.registerComponent('Ana Sayfa', () => App);
 Navigation.registerComponent('card', () => CategoryCard);
@@ -14,9 +17,9 @@ Navigation.registerComponent('QuizScreen',() => Quiz);
 Navigation.registerComponent('PreviewPage', () => QuizPreview);
 Navigation.registerComponent('ResultsScreen', () => ResultsScreen);
 
-const homeIcon = Icon.getImageSourceSync('home', 35, 'black');
+const homeIcon = Icon.getImageSourceSync('home', 35, colors.default.HOMECARD_BG);
 const playIcon = Icon.getImageSourceSync('md-arrow-back', 24, 'white');
-const profileIcon = Icon.getImageSourceSync('cog', 35, 'black');
+const profileIcon = Icon.getImageSourceSync('cog', 35, colors.default.HOMECARD_BG);
 
 Navigation.events().registerAppLaunchedListener(() => {
    Navigation.setRoot({
@@ -32,6 +35,11 @@ Navigation.events().registerAppLaunchedListener(() => {
        },
        bottomTabs: {
         id: 'BOTTOM_TABS_LAYOUT',
+        options: {
+          bottomTabs: {
+            backgroundColor: colors.default.HEADER_BG
+          }
+        },
         children: [
           {
             stack: {
@@ -79,8 +87,11 @@ App.options = {
     topBar: {
       title: {
         text: "Quiz",
-        color: 'black',
+        color: colors.default.QUIZ_TEXT,
       },
+      background: {
+        color: colors.default.HEADER_BG
+      }
     }
 }
 

@@ -113,6 +113,10 @@ export default class Quiz extends Component {
   _renderQuestion() {
     return (
       <View style={styles.question}>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <Text style={styles.textinfo}>{this.props.topic}</Text>
+          <Text style={styles.textQuestionInfo}>{this.state.questionIndex + 1}/10</Text>
+        </View>
         <Text style={styles.text}>{this.state.questions[this.state.questionIndex]}</Text>
         {this.renderOptions()}
       </View>
@@ -221,10 +225,10 @@ export default class Quiz extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#00B4D8',
+    backgroundColor: colors.default.QUIZ_BG,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 70
+    paddingTop: 10
   },
   loading: {
     fontFamily: 'Verdana',
@@ -233,11 +237,23 @@ const styles = StyleSheet.create({
     fontSize: 30
   },
   text: {
-    color: "#fff",
+    color: colors.default.QUIZ_TEXT,
     fontSize: 25,
     textAlign: "center",
     letterSpacing: -0.02,
-    fontWeight: "600"
+    fontWeight: "600",
+    paddingTop: 10
+  },
+  textinfo: {
+    color: colors.default.QUIZ_TEXT,
+    fontSize: 15,
+    fontWeight: 'normal',
+  },
+  textQuestionInfo: {
+    color: colors.default.QUIZ_TEXT,
+    fontSize: 15,
+    fontWeight: 'normal',
+    alignSelf: 'flex-end'
   },
   options: {
     height: 50,

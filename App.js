@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import CategoryCard from './components/CategoryCard'
 import { Navigation } from 'react-native-navigation';
 
+var colors = require('./assets/colors/color')
 
 const cards = [
   {'id': '0','title': "Random", 'description': "Select a random topic", 'icon': 'shuffle', 'category_id': 'random'},
@@ -27,6 +28,13 @@ export default class App extends Component {
             iconName: selection.icon,
             title: selection.title,
             description: text
+          },
+          options: {
+            topBar: {
+              background: {
+                color: colors.default.HEADER_BG
+              }
+            }
           }
         }
       })
@@ -47,11 +55,13 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
+              <View style={styles.flatlistContainer}>
         <FlatList
           data={cards}
           renderItem={this.renderCards}
           keyExtractor={item => item.id}
         />
+      </View>
       </View>
     )
   }
@@ -59,6 +69,10 @@ export default class App extends Component {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    backgroundColor: colors.default.QUIZ_BG
+  },
+  flatlistContainer: {
       flex: 1,
       flexDirection: 'column',
       margin: 10,

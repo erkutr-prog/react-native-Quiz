@@ -3,6 +3,9 @@ import React, { Component } from 'react'
 import Card from '@paraboly/react-native-card/build/dist/components/Card/Card'
 import { Dimensions } from 'react-native';
 import { Navigation } from 'react-native-navigation';
+import { color } from 'react-native-elements/dist/helpers';
+
+var colors = require('./../assets/colors/color')
 
 export default class QuizPreview extends Component {
   constructor(props) {
@@ -14,7 +17,8 @@ export default class QuizPreview extends Component {
         component: {
             name: "QuizScreen",
             passProps: {
-                category: id
+                category: id,
+                topic: this.props.title
             },
             options: {
                 topBar: {
@@ -22,7 +26,11 @@ export default class QuizPreview extends Component {
                         visible: false
                     },
                     title: {
-                        text: 'Questions'
+                        text: 'Questions',
+                        color: colors.default.QUIZ_TEXT
+                    },
+                    background: {
+                        color: colors.default.HEADER_BG
                     }
                 }
             }
@@ -68,13 +76,11 @@ export default class QuizPreview extends Component {
 const styles = StyleSheet.create( {
     container: {
         flex: 1,
+        alignItems: 'center',
+        backgroundColor: colors.default.QUIZ_BG
     },
     previewCard: {
         height: 200,
-        maxWidth: Dimensions.get('window').width,
-        maxHeight: Dimensions.get('window').height,
-        position: 'absolute',
-        marginTop: Dimensions.get('window').height/5,
-        marginLeft: Dimensions.get('window').width/25,
+        marginTop: 10
     }
 })
