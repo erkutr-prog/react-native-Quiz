@@ -9,6 +9,8 @@ const cards = [
   {'id': '0','title': "Random", 'description': "Select a random topic", 'icon': 'shuffle', 'category_id': 'random'},
   {'id': '1','title': "General Knowledge", 'description': "Test your general knowledge", 'icon': 'network', 'category_id': '9'},
   {'id': '2', 'title': "Sports", 'description': "Football,Basketball,Tennis etc", 'icon': 'trophy', 'category_id': '21'},
+  {'id': '3', 'title': "Computer Science", 'description': "Computer science challenge!", 'icon': 'code', 'category_id': '18'},
+  {'id': '4', 'title': "Politics", 'description': "A test of politics knowledge", 'icon': 'mic', 'category_id': '24'}
 ]
 
 export default class App extends Component {

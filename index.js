@@ -6,6 +6,8 @@ import ProfileScreen from "./screens/ProfileScreen"
 import Quiz from "./components/Quiz"
 import QuizPreview from "./screens/QuizPreview"
 import ResultsScreen from "./components/ResultScreen"
+import LoginScreen from './screens/LoginScreen';
+import RegisterScreen from './screens/RegisterScreen';
 import { color } from 'react-native-elements/dist/helpers';
 
 var colors = require('./assets/colors/color')
@@ -16,24 +18,52 @@ Navigation.registerComponent('ProfileScreen', () => ProfileScreen);
 Navigation.registerComponent('QuizScreen',() => Quiz);
 Navigation.registerComponent('PreviewPage', () => QuizPreview);
 Navigation.registerComponent('ResultsScreen', () => ResultsScreen);
+Navigation.registerComponent('LoginScreen', () => LoginScreen);
+Navigation.registerComponent('RegisterScreen', () => RegisterScreen)
 
 const homeIcon = Icon.getImageSourceSync('home', 35, colors.default.HOMECARD_BG);
 const playIcon = Icon.getImageSourceSync('md-arrow-back', 24, 'white');
 const profileIcon = Icon.getImageSourceSync('cog', 35, colors.default.HOMECARD_BG);
 
+var data = require('./store/data');
+
 Navigation.events().registerAppLaunchedListener(() => {
-   Navigation.setRoot({
-     root: {
-       stack: {
-         children: [
-           {
-             component: {
-               name: 'Ana Sayfa'
-             },
-           }
-         ],
-       },
-       bottomTabs: {
+  if (data.isLoggedIn) {
+    setMainRoot();
+  } else {
+    setLoginRoot();
+  }
+});
+
+function setLoginRoot() {
+  Navigation.setRoot({
+    root: {
+      stack: {
+        children: [
+          {
+            component: {
+              name: 'LoginScreen'
+            }
+          }
+        ]
+      }
+    }
+  })
+}
+
+function setMainRoot() {
+  Navigation.setRoot({
+    root: {
+      stack: {
+        children: [
+          {
+            component: {
+              name: 'Ana Sayfa'
+            }
+          }
+        ]
+      },
+      bottomTabs: {
         id: 'BOTTOM_TABS_LAYOUT',
         options: {
           bottomTabs: {
@@ -79,9 +109,9 @@ Navigation.events().registerAppLaunchedListener(() => {
           }
         ]
       }
-     }
-  });
-});
+    }
+  })
+}
 
 App.options = {
     topBar: {
@@ -99,7 +129,24 @@ ProfileScreen.options = {
   topBar: {
     title: {
       text: "Settings",
-      color: 'black',
+      color: colors.default.QUIZ_TEXT,
     },
+    background: {
+      color: colors.default.HEADER_BG
+    }
   }
 }
+
+LoginScreen.options = {
+  topBar: {
+    title: {
+      text: "Quizzy",
+      color: colors.default.QUIZ_TEXT,
+    },
+    background: {
+      color: colors.default.HEADER_BG
+    }
+  }
+}
+
+module.exports = setMainRoot;
