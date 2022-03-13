@@ -10,7 +10,10 @@ const cards = [
   {'id': '1','title': "General Knowledge", 'description': "Test your general knowledge", 'icon': 'network', 'category_id': '9'},
   {'id': '2', 'title': "Sports", 'description': "Football,Basketball,Tennis etc", 'icon': 'trophy', 'category_id': '21'},
   {'id': '3', 'title': "Computer Science", 'description': "Computer science challenge!", 'icon': 'code', 'category_id': '18'},
-  {'id': '4', 'title': "Politics", 'description': "A test of politics knowledge", 'icon': 'mic', 'category_id': '24'}
+  {'id': '4', 'title': "Politics", 'description': "A test of politics knowledge", 'icon': 'mic', 'category_id': '24'},
+  {'id': '5', 'title': "Art", 'description': "Art challenge", 'icon': 'brush', 'category_id': '25'},
+  {'id': '6', 'title': "Books", 'description': "For the bookworms!", 'icon': 'book', 'category_id': '10'},
+  {'id': '7', 'title': "Animals", 'description': "We love animals", 'icon': 'baidu', 'category_id': '27'}
 ]
 
 export default class App extends Component {

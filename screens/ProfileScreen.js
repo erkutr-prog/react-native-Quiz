@@ -1,14 +1,65 @@
-import { Text, View, StyleSheet } from 'react-native'
+import { Text, View, StyleSheet, Button, Alert, Image, TouchableOpacity } from 'react-native'
 import React, { Component } from 'react'
+import { Navigation } from 'react-native-navigation';
 
 var colors = require('./../assets/colors/color')
 var data = require('./../store/data');
+var profileIcon = require('./../assets/icons/anon.png')
 
 export default class ProfileScreen extends Component {
+  constructor(props) {
+    super(props);
+    this._loginScreen = this._loginScreen.bind(this);
+    this._onLogout = this._onLogout.bind(this);
+    this.createAlert = this.createAlert.bind(this);
+  }
+
+  _loginScreen() {
+    Navigation.setRoot({
+      root: {
+        stack: {
+          children: [
+            {
+              component: {
+                name: 'LoginScreen'
+              }
+            }
+          ]
+        }
+      }
+    })
+  }
+
+  createAlert() {
+    Alert.alert("Logout",
+      "Are you sure you want to logout?",
+      [
+        {
+          text: "Yes",
+          onPress: () => this._onLogout()
+        },
+        {
+          text: "No",
+          onPress: () => console.log("Cancel pressed")
+        }
+      ]
+    )
+  }
+
+  async _onLogout() {
+    await this._loginScreen();
+    setTimeout(() => {
+      Navigation.popToRoot();
+    }, 1000);
+  }
   render() {
     return (
       <View style={styles.container}>
-        <Text>{data.email}</Text>
+        <Image source={profileIcon} style={styles.ppIcon}/>
+        <Text style={styles.text}>{data.email}</Text>
+        <TouchableOpacity style={styles.logoutBtn} onPress={this.createAlert}>
+          <Text style={styles.logoutText}>Log Out</Text>
+        </TouchableOpacity>
       </View>
     )
   }
@@ -18,7 +69,31 @@ export default class ProfileScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.default.QUIZ_BG
+    backgroundColor: colors.default.QUIZ_BG,
+    alignItems: 'center',
+    paddingTop: 30
+  },
+  ppIcon: {
+    width: 200,
+    height: 200,
+  },
+  logoutText: {
+    color: colors.default.QUIZ_TEXT
+  },
+  logoutBtn: {
+    marginTop: 70,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: colors.default.WRONG_ANSWER,
+    borderRadius: 20,
+    width: 200,
+    height: 50
+  },
+  text: {
+    paddingTop: 70,
+    fontWeight: 'bold',
+    fontSize: 20,
+    color: colors.default.QUIZ_TEXT
   },
   flatlistContainer: {
       flex: 1,

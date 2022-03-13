@@ -156,6 +156,9 @@ export default class Quiz extends Component {
                   },
                   backButton: {
                     visible: false
+                  },
+                  background: {
+                    color: colors.default.HEADER_BG
                   }
                 }
               }

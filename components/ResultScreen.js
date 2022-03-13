@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 import { Dimensions } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 
+var colors = require('./../assets/colors/color');
+
 export default class ResultScreen extends Component {
   constructor(props) {
       super(props);
@@ -14,7 +16,7 @@ export default class ResultScreen extends Component {
 
   render() {
     return (
-        <View style={{flex: 1, backgroundColor: '#00B4D8',}}>
+        <View style={{flex: 1, backgroundColor: colors.default.QUIZ_BG,}}>
             <View style={styles.container}>
                 <Text style={styles.text}>{this.props.counter}/{this.props.total}</Text>
             </View>
