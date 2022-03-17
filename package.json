@@ -20,6 +20,7 @@
     "react-native-androw": "^0.0.34",
     "react-native-dynamic-vector-icons": "^1.1.4",
     "react-native-navigation": "^7.25.4",
+    "react-native-splash-screen": "^3.3.0",
     "react-native-vector-icons": "^7.1.0",
     "react-redux": "^7.2.6",
     "redux": "^4.1.2"

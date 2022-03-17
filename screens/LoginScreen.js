@@ -1,8 +1,11 @@
 import { Text, View, Image, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native'
 import React, { Component } from 'react';
-import auth from "@react-native-firebase/auth";
+import firebaseConfig from '../firebase';
+import SplashScreen from 'react-native-splash-screen';
+//import auth, { firebase } from "@react-native-firebase/auth";
 import { Navigation } from 'react-native-navigation';
 import { Icon } from 'react-native-elements';
+import { firebase } from '@react-native-firebase/auth';
 
 var setMainRoot = require('./../index');
 var data = require('./../store/data');
@@ -18,9 +21,15 @@ export default class LoginScreen extends Component {
         }
     }
 
+    componentDidMount() {
+        SplashScreen.hide();
+    }
+
 
     async _onloginPress() {
-        await auth().signInWithEmailAndPassword(this.state.mail.toLowerCase(), this.state.password).then(() => {
+        await firebase.initializeApp(firebaseConfig);
+        
+        await firebase.auth().signInWithEmailAndPassword(this.state.mail.toLowerCase(), this.state.password).then(() => {
             data.isLoggedIn = true;
             data.email = this.state.mail;
             setMainRoot();
