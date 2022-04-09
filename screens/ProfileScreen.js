@@ -1,6 +1,9 @@
 import { Text, View, StyleSheet, Button, Alert, Image, TouchableOpacity } from 'react-native'
 import React, { Component } from 'react'
 import { Navigation } from 'react-native-navigation';
+import auth, { firebase } from "@react-native-firebase/auth";
+import { GoogleSignin, GoogleSigninButton } from '@react-native-google-signin/google-signin';
+
 
 var colors = require('./../assets/colors/color')
 var data = require('./../store/data');
@@ -12,6 +15,20 @@ export default class ProfileScreen extends Component {
     this._loginScreen = this._loginScreen.bind(this);
     this._onLogout = this._onLogout.bind(this);
     this.createAlert = this.createAlert.bind(this);
+  }
+
+ 
+  componentDidMount() {
+    var user = auth().currentUser;
+    auth().onAuthStateChanged(function (user)  {
+      if (user) {
+        console.log("******")
+        data.email = user.displayName;
+        data.userPhoto = user.photoUrl
+      } else {
+
+      }
+    })
   }
 
   _loginScreen() {
@@ -46,16 +63,24 @@ export default class ProfileScreen extends Component {
     )
   }
 
+  
+
   async _onLogout() {
+    if (data.isGoogleUser) {
+      await GoogleSignin.revokeAccess();
+      await GoogleSignin.signOut();
+    }
+    await auth().signOut()
     await this._loginScreen();
     setTimeout(() => {
       Navigation.popToRoot();
     }, 1000);
+    data.isLoggedIn = true;
   }
   render() {
     return (
       <View style={styles.container}>
-        <Image source={profileIcon} style={styles.ppIcon}/>
+        <Image source={data.userPhoto == '' ? profileIcon : {uri: data.userPhoto}} style={styles.ppIcon}/>
         <Text style={styles.text}>{data.email}</Text>
         <TouchableOpacity style={styles.logoutBtn} onPress={this.createAlert}>
           <Text style={styles.logoutText}>Log Out</Text>

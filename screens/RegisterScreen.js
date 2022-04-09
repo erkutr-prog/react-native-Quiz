@@ -13,6 +13,26 @@ export default class RegisterScreen extends Component {
         }
     }
 
+    componentWillUnmount() {
+        this.navigationEventListener.remove();
+    }
+
+    componentDidAppear() {
+        Navigation.mergeOptions(this.props.componentId, {
+            topBar: {
+                title: {
+                    text: 'Register'
+                },
+                background: {
+                    color: '#FFFFFF'
+                }
+            }
+        })
+    }
+
+    componentDidMount() {
+        this.navigationEventListener = Navigation.events().bindComponent(this);
+    }
     async register() {
         let success = true
         await auth().createUserWithEmailAndPassword(this.state.email.toLowerCase(), this.state.password)
@@ -35,6 +55,7 @@ export default class RegisterScreen extends Component {
             <TextInput
                 style={styles.register}
                 placeholder='Enter your name'
+                placeholderTextColor={'gray'}
                 label='Name'
                 value={this.name}
                 onChangeText={text => this.setState({name: text})}
@@ -42,6 +63,7 @@ export default class RegisterScreen extends Component {
             <TextInput
                 style={styles.register}
                 placeholder='Enter your email'
+                placeholderTextColor={'gray'}
                 label='Email'
                 value={this.email}
                 onChangeText={text => this.setState({email: text})}
@@ -49,6 +71,7 @@ export default class RegisterScreen extends Component {
             <TextInput
                 style={styles.register}
                 placeholder='Enter your password'
+                placeholderTextColor={'gray'}
                 label='Password'
                 value={this.password} onChangeText={text => this.setState({password: text})}
                 secureTextEntry
@@ -66,7 +89,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         padding: 10,
-        marginTop: 100,
+        backgroundColor: '#ffffff'
     },
     button: {
         width: 370,
@@ -76,7 +99,7 @@ const styles = StyleSheet.create({
         height: 40,
         width: '90%',
         borderRadius: 10,
-        backgroundColor: '#f8f8f8',
+        backgroundColor: '#ffffff',
         borderWidth: 0.2,
         borderColor: 'blue',
         margin: 12,

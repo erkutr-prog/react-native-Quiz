@@ -13,6 +13,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		1CB6BD3DA92635A45CA979DD /* libPods-quizApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F6E7492C763D3D58B76F04C3 /* libPods-quizApp.a */; };
+		3B4350882801D79900915DD9 /* libRNGoogleSignin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B4350872801D79900915DD9 /* libRNGoogleSignin.a */; };
 		3B74040E27DD002500E53764 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B74040D27DD002500E53764 /* GoogleService-Info.plist */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -38,6 +39,7 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = quizApp/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = quizApp/main.m; sourceTree = "<group>"; };
 		2159F5EE0D4F7C6349F9073F /* libPods-quizApp-quizAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-quizApp-quizAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3B4350872801D79900915DD9 /* libRNGoogleSignin.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNGoogleSignin.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B74040D27DD002500E53764 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3BC2BCEF27CA9B8B00261A2C /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		3BC2BCF027CA9B8B00261A2C /* AntDesign.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B4350882801D79900915DD9 /* libRNGoogleSignin.a in Frameworks */,
 				1CB6BD3DA92635A45CA979DD /* libPods-quizApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -117,6 +120,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3B4350872801D79900915DD9 /* libRNGoogleSignin.a */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				F6E7492C763D3D58B76F04C3 /* libPods-quizApp.a */,
 				2159F5EE0D4F7C6349F9073F /* libPods-quizApp-quizAppTests.a */,

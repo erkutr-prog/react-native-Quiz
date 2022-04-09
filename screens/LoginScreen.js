@@ -4,6 +4,7 @@ import SplashScreen from 'react-native-splash-screen';
 import auth, { firebase } from "@react-native-firebase/auth";
 import { Navigation } from 'react-native-navigation';
 import { Icon } from 'react-native-elements';
+import { GoogleSignin, GoogleSigninButton } from '@react-native-google-signin/google-signin';
 
 var setMainRoot = require('./../index');
 var data = require('./../store/data');
@@ -21,33 +22,70 @@ export default class LoginScreen extends Component {
 
     componentDidMount() {
         SplashScreen.hide();
+        GoogleSignin.configure({
+            iosClientId: '721363196314-s7pmf63ahf5q5s0132q4r73uqod7t2b3.apps.googleusercontent.com',
+            webClientId: '721363196314-s7pmf63ahf5q5s0132q4r73uqod7t2b3.apps.googleusercontent.com',
+            offlineAccess: false
+        })
     }
 
+    _loginSuccess(isGoogle) {
+        data.isLoggedIn = true;
+        //TODO: Gmail adresi alma
+        data.email = isGoogle ? '' : this.state.mail;
+        data.isGoogleUser = isGoogle ? true : false;
+        setMainRoot();
+        setTimeout(() => {
+            Navigation.push(this.props.componentId, {
+                component: {
+                    name: 'Ana Sayfa',
+                    options: {
+                        topBar: {
+                            backButton: {
+                                visible: false
+                            }
+                        }
+                    }
+                },
+            })
+        }, 1000)
+    }
 
     async _onloginPress() {        
         await auth().signInWithEmailAndPassword(this.state.mail.toLowerCase(), this.state.password).then(() => {
-            data.isLoggedIn = true;
-            data.email = this.state.mail;
-            setMainRoot();
-            setTimeout(() => {
-                Navigation.push(this.props.componentId, {
-                    component: {
-                        name: 'Ana Sayfa',
-                        options: {
-                            topBar: {
-                                backButton: {
-                                    visible: false
-                                }
-                            }
-                        }
-                    },
-                })
-            }, 1000)
+            this._loginSuccess(false);
         }).catch((error) => {
             var errorMessage = error.message
             Alert.alert(errorMessage);
         })
     }
+
+    _signInWithGoogle = async () => {
+        try {
+            console.log("ım here")
+          await GoogleSignin.hasPlayServices();
+          const {accessToken, idToken} = await GoogleSignin.signIn();
+          const credential = auth.GoogleAuthProvider.credential(
+            idToken,
+            accessToken,
+          );
+          await auth().signInWithCredential(credential);
+          this._loginSuccess(true);
+        } catch (error) {
+          if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+            // user cancelled the login flow
+            alert('Cancel');
+          } else if (error.code === statusCodes.IN_PROGRESS) {
+            alert('Signin in progress');
+            // operation (f.e. sign in) is in progress already
+          } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+            alert('PLAY_SERVICES_NOT_AVAILABLE');
+            // play services not available or outdated
+          } else {
+            // some other error happened
+          }
+        }
+      };
 
     _onRegisterPress() {
         Navigation.push(this.props.componentId, {
@@ -70,6 +108,13 @@ export default class LoginScreen extends Component {
             <TouchableOpacity style={styles.btn} onPress={() => this._onRegisterPress()}>
                 <Text>Register</Text>
             </TouchableOpacity>
+            <GoogleSigninButton
+                style={{ width: 192, height: 48, alignSelf: 'center' }}
+                size={GoogleSigninButton.Size.Wide}
+                color={GoogleSigninButton.Color.Dark}
+                onPress={this._signInWithGoogle}
+                disabled={false}
+            />
         </View>
     </View>
     )

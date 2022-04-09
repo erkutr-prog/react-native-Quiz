@@ -5,7 +5,8 @@ import { observable } from "mobx";
 var data = observable({
     isLoggedIn: false,
     username: '',
-    email: ''
+    email: '',
+    userPhoto: ''
 })
 
 module.exports = data;

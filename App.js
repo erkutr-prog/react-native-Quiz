@@ -2,8 +2,10 @@ import { Text, View,StyleSheet, ScrollView, FlatList, TouchableOpacity } from 'r
 import React, { Component } from 'react'
 import CategoryCard from './components/CategoryCard'
 import { Navigation } from 'react-native-navigation';
+import auth, {firebase} from '@react-native-firebase/auth'
 
 var colors = require('./assets/colors/color')
+var data = require('./store/data');
 
 const cards = [
   {'id': '0','title': "Random", 'description': "Select a random topic", 'icon': 'shuffle', 'category_id': 'random'},
@@ -19,6 +21,19 @@ const cards = [
 export default class App extends Component {
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount () {
+    auth().onAuthStateChanged(function (user)  {
+      if (user) {
+        console.log("******")
+        data.email = user.displayName;
+        data.userPhoto = user.photoURL
+        console.log(data.userPhoto)
+      } else {
+
+      }
+    })
   }
   
 
