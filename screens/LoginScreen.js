@@ -22,11 +22,20 @@ export default class LoginScreen extends Component {
 
     componentDidMount() {
         SplashScreen.hide();
-        GoogleSignin.configure({
-            iosClientId: '721363196314-s7pmf63ahf5q5s0132q4r73uqod7t2b3.apps.googleusercontent.com',
-            webClientId: '721363196314-s7pmf63ahf5q5s0132q4r73uqod7t2b3.apps.googleusercontent.com',
-            offlineAccess: false
-        })
+        if (Platform.OS == 'ios') {
+            GoogleSignin.configure({
+                iosClientId: '721363196314-s7pmf63ahf5q5s0132q4r73uqod7t2b3.apps.googleusercontent.com',
+                webClientId: '721363196314-s7pmf63ahf5q5s0132q4r73uqod7t2b3.apps.googleusercontent.com',
+                offlineAccess: false
+            })
+        } else {
+            console.log("android")
+            GoogleSignin.configure({
+                webClientId: '986263855568-h08p8jphvv7hk4addtuplfrbm16fg66m.apps.googleusercontent.com',
+                offlineAccess: false
+            })
+            console.log("android2")
+        }
     }
 
     _loginSuccess(isGoogle) {
@@ -72,14 +81,18 @@ export default class LoginScreen extends Component {
         } catch (error) {
           if (error.code === statusCodes.SIGN_IN_CANCELLED) {
             // user cancelled the login flow
+            console.log("1")
             alert('Cancel');
           } else if (error.code === statusCodes.IN_PROGRESS) {
+              console.log("2")
             alert('Signin in progress');
             // operation (f.e. sign in) is in progress already
           } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+              console.log("3");
             alert('PLAY_SERVICES_NOT_AVAILABLE');
             // play services not available or outdated
           } else {
+              console.log("4")
             // some other error happened
           }
         }

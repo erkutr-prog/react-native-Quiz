@@ -2,7 +2,7 @@ import { Text, View, StyleSheet, Button, Alert, Image, TouchableOpacity } from '
 import React, { Component } from 'react'
 import { Navigation } from 'react-native-navigation';
 import auth, { firebase } from "@react-native-firebase/auth";
-import { GoogleSignin, GoogleSigninButton } from '@react-native-google-signin/google-signin';
+import { GoogleSignin, GoogleSigninButton } from '@react-native-community/google-signin';
 
 
 var colors = require('./../assets/colors/color')
