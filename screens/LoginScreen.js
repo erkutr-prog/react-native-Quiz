@@ -1,10 +1,10 @@
-import { Text, View, Image, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native'
+import { Text, View, Image, StyleSheet, TextInput, TouchableOpacity, Alert, Platform } from 'react-native'
 import React, { Component } from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import auth, { firebase } from "@react-native-firebase/auth";
 import { Navigation } from 'react-native-navigation';
 import { Icon } from 'react-native-elements';
-import { GoogleSignin, GoogleSigninButton } from '@react-native-google-signin/google-signin';
+import { GoogleSignin, GoogleSigninButton,statusCodes } from '@react-native-community/google-signin';
 
 var setMainRoot = require('./../index');
 var data = require('./../store/data');
@@ -31,7 +31,6 @@ export default class LoginScreen extends Component {
 
     _loginSuccess(isGoogle) {
         data.isLoggedIn = true;
-        //TODO: Gmail adresi alma
         data.email = isGoogle ? '' : this.state.mail;
         data.isGoogleUser = isGoogle ? true : false;
         setMainRoot();
@@ -62,7 +61,6 @@ export default class LoginScreen extends Component {
 
     _signInWithGoogle = async () => {
         try {
-            console.log("ım here")
           await GoogleSignin.hasPlayServices();
           const {accessToken, idToken} = await GoogleSignin.signIn();
           const credential = auth.GoogleAuthProvider.credential(

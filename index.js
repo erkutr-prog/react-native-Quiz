@@ -8,6 +8,7 @@ import QuizPreview from "./screens/QuizPreview"
 import ResultsScreen from "./components/ResultScreen"
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
+import HeaderButton  from './components/HeaderButton';
 import { color } from 'react-native-elements/dist/helpers';
 
 var colors = require('./assets/colors/color')
@@ -19,7 +20,8 @@ Navigation.registerComponent('QuizScreen',() => Quiz);
 Navigation.registerComponent('PreviewPage', () => QuizPreview);
 Navigation.registerComponent('ResultsScreen', () => ResultsScreen);
 Navigation.registerComponent('LoginScreen', () => LoginScreen);
-Navigation.registerComponent('RegisterScreen', () => RegisterScreen)
+Navigation.registerComponent('RegisterScreen', () => RegisterScreen);
+Navigation.registerComponent('HeaderButton', () => HeaderButton);
 
 const homeIcon = Icon.getImageSourceSync('home', 35, colors.default.HOMECARD_BG);
 const playIcon = Icon.getImageSourceSync('md-arrow-back', 24, 'white');

@@ -26,17 +26,18 @@ export default class Quiz extends Component {
   }
 
   async componentDidMount() {
-    await this.fetchQuestions(this.props.category)
+    await this.fetchQuestions(this.props.category, this.props.selectedDiff)
   }
   
-  async fetchQuestions(category){
+  async fetchQuestions(category, difficulty){
       var questionsdata = [];
       //setting our topic based on selection with category_id
       if (category === 'random') {
-        var url = "https://opentdb.com/api.php?amount=10&category=" + "&type=multiple"
+        var url = "https://opentdb.com/api.php?amount=10&category=" + "&type=multiple" + "&difficulty=" + difficulty + ""
       } else {
-        var url = "https://opentdb.com/api.php?amount=10&category=" + category + "&type=multiple"
+        var url = "https://opentdb.com/api.php?amount=10&category=" + category + "&difficulty=" + difficulty + "&type=multiple"
       }
+      console.log("URL=====",url);
     try {
       await fetch(url)
     .then(response => response.json())

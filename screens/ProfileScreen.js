@@ -22,7 +22,6 @@ export default class ProfileScreen extends Component {
     var user = auth().currentUser;
     auth().onAuthStateChanged(function (user)  {
       if (user) {
-        console.log("******")
         data.email = user.displayName;
         data.userPhoto = user.photoUrl
       } else {

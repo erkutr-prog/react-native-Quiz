@@ -26,10 +26,8 @@ export default class App extends Component {
   componentDidMount () {
     auth().onAuthStateChanged(function (user)  {
       if (user) {
-        console.log("******")
         data.email = user.displayName;
         data.userPhoto = user.photoURL
-        console.log(data.userPhoto)
       } else {
 
       }
